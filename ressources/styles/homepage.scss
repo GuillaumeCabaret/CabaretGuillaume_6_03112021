@@ -6,3 +6,9 @@
     margin-right: auto;
     margin-bottom: 20px;
 }
+
+.gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
