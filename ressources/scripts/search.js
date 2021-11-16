@@ -8,7 +8,7 @@ export function stringSearch(s, recipeArray) {
                 ingredientMatch = true;
             }
         });
-        return recipe.name.toLowerCase().indexOf(s.toLowerCase()) !== -1 || recipe.description.toLowerCase().indexOf(s.toLowerCase()) !== -1 || ingredientMatch; //TODO: RETURN BOOLEAN
+        return recipe.name.toLowerCase().indexOf(s.toLowerCase()) !== -1 || recipe.description.toLowerCase().indexOf(s.toLowerCase()) !== -1 || ingredientMatch;
     });
     console.log(result);
     return result;

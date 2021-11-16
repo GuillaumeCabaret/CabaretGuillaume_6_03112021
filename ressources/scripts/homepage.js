@@ -1,24 +1,33 @@
 import { recipes } from "../data/recipes.js";
 import { stringSearch } from "../scripts/search.js"
+import { populateFilter } from "./filter.js";
 const gallery = document.querySelector(".gallery");
 const searchInput = document.querySelector(".searchbar__input");
+const ingredientFilter = document.querySelector("#dropdownBlue");
+const ustensilesFilter = document.querySelector("#dropdownOrange");
+const appareilFilter = document.querySelector("#dropdownGreen");
 
 let allRecipes = recipes;
 let filteredRecipes = [];
 
 renderRecipe(allRecipes);
+populateFilter(allRecipes, ingredientFilter, appareilFilter, ustensilesFilter);
 
-searchInput.addEventListener("change", (event) => {
+//SEARCH EVENT HANDLING
+searchInput.addEventListener("input", (event) => {
 
-        if (event.target.value.length >= 3) {
-            console.log(event.target.value);
-            filteredRecipes = stringSearch(event.target.value, allRecipes);
-            renderRecipe(filteredRecipes);
-        } else {
-            renderRecipe(allRecipes);
-        }
-    })
-    //RENDER RECIPE CARD
+    if (event.target.value.length >= 3) {
+        console.log(event.target.value);
+        filteredRecipes = stringSearch(event.target.value, allRecipes);
+        renderRecipe(filteredRecipes);
+        populateFilter(filteredRecipes, ingredientFilter, appareilFilter, ustensilesFilter);
+    } else {
+        renderRecipe(allRecipes);
+        populateFilter(filteredRecipes, ingredientFilter, appareilFilter, ustensilesFilter);
+    }
+})
+
+//RENDER RECIPE CARD
 function renderRecipe(listRecette) {
 
     gallery.innerHTML = "";

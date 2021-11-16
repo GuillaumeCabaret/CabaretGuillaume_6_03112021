@@ -1,0 +1,23 @@
+{
+  "name": "cabaretguillaume_6_03112021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuillaumeCabaret/CabaretGuillaume_6_03112021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuillaumeCabaret/CabaretGuillaume_6_03112021/issues"
+  },
+  "homepage": "https://github.com/GuillaumeCabaret/CabaretGuillaume_6_03112021#readme"
+}
