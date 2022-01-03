@@ -1,11 +1,11 @@
 export function stringSearch(s, recipeArray) {
-
     return recipeArray.filter((obj) => {
-        return obj.name.toLowerCase().includes(s.toLowerCase()) || obj.description.toLowerCase().includes(s.toLowerCase()) ||
-            obj.ingredients.some(ingredientObj => ingredientObj.ingredient.toLowerCase().includes(s.toLowerCase()))
+        let is;
+        obj.ingredients.forEach(i => is += i.ingredient);
+        let data = obj.name + obj.description + is;
+        return data.toLowerCase().indexOf(s.toLowerCase()) !== -1;
     });
 }
-
 export function filterSearch(s, recipeArray) {
     let result = recipeArray.filter(recipe => {
         let ingredientMatch = false;
