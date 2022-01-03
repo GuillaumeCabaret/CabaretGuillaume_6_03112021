@@ -1,14 +1,42 @@
-.logo {
-    object-fit: scale-down;
-    width: 268px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-}
-
-.gallery {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
+    .logo {
+        object-fit: scale-down;
+        width: 268px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+    }
+    
+    .tag {
+        min-width: 107px;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        margin-right: 10px;
+        &--blue {
+            background-color: #3282F7;
+        }
+        &--green {
+            background-color: #68D9A4;
+        }
+        &--orange {
+            background-color: #ED6454;
+        }
+    }
+    
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 50px;
+    }
+    
+    .badgeContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .badgeButton {
+        margin-left: 5px;
+        cursor: pointer;
+    }
