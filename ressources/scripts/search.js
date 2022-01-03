@@ -1,5 +1,4 @@
 export function stringSearch(s, recipeArray) {
-
     return recipeArray.filter((obj) => {
         return obj.name.toLowerCase().includes(s.toLowerCase()) || obj.description.toLowerCase().includes(s.toLowerCase()) ||
             obj.ingredients.some(ingredientObj => ingredientObj.ingredient.toLowerCase().includes(s.toLowerCase()))

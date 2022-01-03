@@ -45,6 +45,7 @@
     margin-left: 0px;
     border-radius: 5px;
     height: 50px;
+    color: #ffff;
     &-section {
         display: flex;
     }
@@ -62,6 +63,10 @@
         background-color: #ED6454;
         color: white;
         border: none;
+    }
+     ::placeholder {
+        color: #ffff;
+        margin: 0;
     }
 }
 

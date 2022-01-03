@@ -16,12 +16,15 @@
 }
 .tag--blue {
   background-color: #3282F7;
+  color: #ffff;
 }
 .tag--green {
   background-color: #68D9A4;
+  color: #ffff;
 }
 .tag--orange {
   background-color: #ED6454;
+  color: #ffff;
 }
 
 .gallery {
@@ -90,6 +93,7 @@
   margin-left: 0px;
   border-radius: 5px;
   height: 50px;
+  color: #ffff;
 }
 .filter-section {
   display: flex;
@@ -108,6 +112,10 @@
   background-color: #ED6454;
   color: white;
   border: none;
+}
+.filter ::placeholder {
+  color: #ffff;
+  margin: 0;
 }
 
 .dropdown {
