@@ -1,72 +1,54 @@
-const ingredient = document.querySelector("#Ingredients");
-const appareil = document.querySelector("#Appareil");
-const ustensiles = document.querySelector("#Ustensils");
+import { ingredientFilter, applianceFilter, ustensilsFilter, ingHandler, appHandler, ustHandler } from "../scripts/homepage.js";
+import { filterWidth } from "../scripts/dropdown.js"
+
+let tempIng = [];
+let tempApp = [];
+let tempUst = [];
 
 
-//FILTER UI HANDLING
-let rotated = false;
-
-function filterDrop(element) {
-    if (!rotated) {
-        element.querySelector(".fa-chevron-down").style.transform = "rotate(180deg)";
-        rotated = true;
-        element.style.height = "auto";
-        element.querySelector(".dropdown").style.display = "flex";
-        element.querySelector(".dropdown").style.height = "400px";
-        element.querySelector(".dropdown").style.height = "auto"; //400px
-    } else {
-        element.querySelector(".fa-chevron-down").style.transform = "rotate(0deg)";
-        rotated = false;
-        element.querySelector(".dropdown").style.display = "none";
-        element.style.height = "50px";
-    }
-}
-//FILTER EVENT BINDING
-appareil.addEventListener("click", () => { filterDrop(appareil) });
-ingredient.addEventListener("click", () => { filterDrop(ingredient) });
-ustensiles.addEventListener("click", () => { filterDrop(ustensiles) });
-
-let ingredientData = [];
-let appareilData = [];
-let ustensilData = [];
-
-//FILTER DATA HANDLING
-export function populateFilter(recipeList, ingredientFilter, appareilFilter, ustensilesFilter) {
-
-    ingredientFilter.innerHTML = "";
-    appareilFilter.innerHTML = "";
-    ustensilesFilter.innerHTML = "";
-
-
+export function getIngredients(recipeList) {
     for (let recipe of recipeList) {
-
         for (let i of recipe.ingredients) {
-
-            //ingredientData.push(i.ingredient);
-            noDuplicate(ingredientData, i.ingredient);
-        }
-        //appareilData.push(recipe.appliance);
-        noDuplicate(appareilData, recipe.appliance);
-        for (let ustensil of recipe.ustensils) {
-            //ustensilData.push(ustensil);
-            noDuplicate(ustensilData, ustensil);
+            noDuplicate(tempIng, i.ingredient);
         }
     }
-    generateFilterHtml(ingredientData, ingredientFilter);
-    generateFilterHtml(appareilData, appareilFilter);
-    generateFilterHtml(ustensilData, ustensilesFilter);
+    return tempIng.sort();
 }
 
-function generateFilterHtml(array, element) {
-    let htmlText = "";
-    for (let item of array) {
-        htmlText += `<p class="dropdown__item">${item}</p>`;
+
+export function renderIngredients(ingredientList) {
+    ingredientFilter.innerHTML = "";
+    ingredientList.forEach(item => ingredientFilter.innerHTML += `<p class="dropdown__item">${item}</p>`)
+}
+
+export function getAppliance(recipeList) {
+    for (let recipe of recipeList) {
+        noDuplicate(tempApp, recipe.appliance);
     }
-    element.innerHTML = htmlText;
+    return tempApp.sort();
+}
+
+
+export function renderAppliance(applianceList) {
+    applianceFilter.innerHTML = "";
+    applianceList.forEach(item => applianceFilter.innerHTML += `<p class="dropdown__item">${item}</p>`)
+}
+
+export function getUstensils(recipeList) {
+    for (let recipe of recipeList) {
+        for (let ustensil of recipe.ustensils) {
+            noDuplicate(tempUst, ustensil);
+        }
+    }
+    return tempUst.sort();
+}
+
+export function renderUstensils(ustensilsList) {
+    ustensilsFilter.innerHTML = "";
+    ustensilsList.forEach(item => ustensilsFilter.innerHTML += `<p class="dropdown__item">${item}</p>`)
 }
 
 function noDuplicate(array, item) {
-
     if (array.indexOf(item) === -1) {
         array.push(item);
     }
@@ -74,22 +56,29 @@ function noDuplicate(array, item) {
 }
 
 const ingredientInput = document.querySelector("#ingredientInput");
-const appareilInput = document.querySelector("#appareilInput");
+const applianceInput = document.querySelector("#appareilInput");
 const ustensilInput = document.querySelector("#ustensilInput");
 
-//TODO ADD CASE HANDLING
-ingredientInput.addEventListener("change", e => {
 
-    let filtered = ingredientData.filter(i => i.includes(e.target.value));
-    generateFilterHtml(filtered, document.querySelector("#dropdownBlue"));
+ingredientInput.addEventListener("keyup", e => {
+    let filtered = tempIng.filter(i => i.toLowerCase().includes(e.target.value.toLowerCase()));
+    renderIngredients(filtered)
+    ingHandler()
+    filterWidth(e.target.closest(".filter"));
+
 })
-appareilInput.addEventListener("change", e => {
+applianceInput.addEventListener("keyup", e => {
+    let filtered = tempApp.filter(i => i.toLowerCase().includes(e.target.value.toLowerCase()));
+    renderAppliance(filtered);
+    appHandler()
+    filterWidth(e.target.closest(".filter"));
 
-    let filtered = appareilData.filter(i => i.includes(e.target.value));
-    generateFilterHtml(filtered, document.querySelector("#dropdownGreen"));
 })
-ustensilInput.addEventListener("change", e => {
+ustensilInput.addEventListener("keyup", e => {
 
-    let filtered = ustensilData.filter(i => i.includes(e.target.value));
-    generateFilterHtml(filtered, document.querySelector("#dropdownOrange"));
+    let filtered = tempUst.filter(i => i.toLowerCase().includes(e.target.value.toLowerCase()));
+    renderUstensils(filtered);
+    ustHandler()
+    filterWidth(e.target.closest(".filter"));
+
 })
