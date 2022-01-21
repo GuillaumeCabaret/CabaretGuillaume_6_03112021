@@ -1,11 +1,26 @@
 export function stringSearch(s, recipeArray) {
-    return recipeArray.filter((obj) => {
-        let is;
-        obj.ingredients.forEach(i => is += i.ingredient);
-        let data = obj.name + obj.description + is;
-        return data.toLowerCase().indexOf(s.toLowerCase()) !== -1;
-    });
+    let array = [];
+    for (let i = 0; i < recipeArray.length; i++) {
+        if (recipeArray[i].name.toLowerCase().includes(s.toLowerCase()) || recipeArray[i].description.toLowerCase().includes(s.toLowerCase()) ||
+            recipeArray[i].ingredients.some(ingredientObj => ingredientObj.ingredient.toLowerCase().includes(s.toLowerCase()))) {
+            array.push(recipeArray[i])
+        }
+    }
+    return array
 }
+
+// function Filter(array, callback) {
+//     let arrayTemp = [];
+//     for (let i = 0; i < array.length; i++) {
+//         if (callback(array[i])) {
+//             arrayTemp.push(array[i])
+//         }
+//     }
+//     return arrayTemp
+// }
+
+// Filter([1,2,3], (val) => val > 2)
+
 export function filterSearch(s, recipeArray) {
     let result = recipeArray.filter(recipe => {
         let ingredientMatch = false;
