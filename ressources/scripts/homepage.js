@@ -1,14 +1,20 @@
 import { recipes } from "../data/recipes.js";
 import { filterSearch, stringSearch } from "../scripts/search.js";
 import { getIngredients, renderIngredients, getAppliance, renderAppliance, getUstensils, renderUstensils } from "../scripts/filter.js";
+import { generateFilterDrop, filterWidth } from "./dropdown.js";
 
 export const ingredientFilter = document.querySelector("#dropdownBlue");
 export const applianceFilter = document.querySelector("#dropdownGreen");
 export const ustensilsFilter = document.querySelector("#dropdownOrange");
 
+const ingredientContainer = document.querySelector("#Ingredients");
+const applianceContainer = document.querySelector("#Appareil");
+const ustensilsContainer = document.querySelector("#Ustensils");
+const ingredientInput = document.querySelector("#ingredientInput");
+const applianceInput = document.querySelector("#appareilInput");
+const ustensilInput = document.querySelector("#ustensilInput");
 const gallery = document.querySelector(".gallery");
 const searchInput = document.querySelector(".searchbar__input");
-
 let allRecipes = recipes;
 let searchedRecipes = [...recipes];
 let ingredientList = [];
@@ -23,6 +29,40 @@ renderUstensils(getUstensils(searchedRecipes));
 ingHandler();
 appHandler();
 ustHandler();
+
+const ingDropDown = generateFilterDrop(ingredientContainer);
+const appDropDown = generateFilterDrop(applianceContainer);
+const ustDropDown = generateFilterDrop(ustensilsContainer);
+
+document.addEventListener("click", function(e) {
+    if (!ingredientContainer.contains(e.target) && !applianceContainer.contains(e.target) && !ustensilsContainer.contains(e.target)) {
+        ingDropDown.filterDropUp();
+        appDropDown.filterDropUp();
+        ustDropDown.filterDropUp();
+    } else {
+        if (ingredientContainer.contains(e.target)) {
+            ingDropDown.filterDrop();
+            appDropDown.filterDropUp();
+            ustDropDown.filterDropUp();
+        }
+        if (applianceContainer.contains(e.target)) {
+            appDropDown.filterDrop();
+            ingDropDown.filterDropUp();
+            ustDropDown.filterDropUp();
+
+        }
+        if (ustensilsContainer.contains(e.target)) {
+            ustDropDown.filterDrop();
+            ingDropDown.filterDropUp();
+            appDropDown.filterDropUp();
+        }
+    }
+})
+
+// applianceContainer.addEventListener("click", appDropDown.filterDrop);
+// ingredientContainer.addEventListener("click", ingDropDown.filterDrop);
+// ustensilsContainer.addEventListener("click", ustDropDown.filterDrop);
+
 
 
 export function ingHandler() {
@@ -186,3 +226,26 @@ function deleteBadge(badgeElem) {
     badgeElem.remove()
     secondaryFilter()
 }
+
+ingredientInput.addEventListener("keyup", e => {
+    let filtered = ingredientList.filter(i => i.toLowerCase().includes(e.target.value.toLowerCase()));
+    renderIngredients(filtered)
+    ingHandler()
+    filterWidth(e.target.closest(".filter"));
+
+})
+applianceInput.addEventListener("keyup", e => {
+    let filtered = applianceList.filter(i => i.toLowerCase().includes(e.target.value.toLowerCase()));
+    renderAppliance(filtered);
+    appHandler()
+    filterWidth(e.target.closest(".filter"));
+
+})
+ustensilInput.addEventListener("keyup", e => {
+
+    let filtered = ustensilsList.filter(i => i.toLowerCase().includes(e.target.value.toLowerCase()));
+    renderUstensils(filtered);
+    ustHandler()
+    filterWidth(e.target.closest(".filter"));
+
+})
